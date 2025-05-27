@@ -1,7 +1,7 @@
-import { refs } from "../main";
-import { userValue } from "../main";
-import { currentPage } from "../main";
-import { maxPage } from "../main";
+import { refs } from '../main';
+import { userValue } from '../main';
+import { currentPage } from '../main';
+import { maxPage } from '../main';
 
 export function createGallery(images) {
   return images
@@ -36,10 +36,9 @@ export function renderGallery(container, images, lightboxInstance) {
   lightboxInstance.refresh();
 }
 export function renderGalleryForLoadBtn(container, images, lightboxInstance) {
-  container.insertAdjacentHTML('beforeend', createGallery(images));;
+  container.insertAdjacentHTML('beforeend', createGallery(images));
   lightboxInstance.refresh();
 }
-
 
 export function clearGallery(container) {
   container.innerHTML = '';
@@ -53,17 +52,17 @@ export function hideLoader(loaderEl) {
   loaderEl.classList.add('is-hidden');
 }
 export function showLoadMoreButton() {
-    refs.loadBtn.classList.remove('is-hidden');
+  refs.loadBtn.classList.remove('is-hidden');
 }
 
 export function hideLoadMoreButton() {
-    refs.loadBtn.classList.add('is-hidden');
+  refs.loadBtn.classList.add('is-hidden');
 }
 
 export function updateBtnStatus() {
-    if (currentPage < maxPage) {
-        showLoadMoreButton();
-    } else {
-        hideLoadMoreButton(); 
-}
+  if (currentPage < maxPage) {
+    showLoadMoreButton();
+  } else {
+    hideLoadMoreButton();
+  }
 }

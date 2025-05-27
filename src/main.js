@@ -50,6 +50,8 @@ refs.formEl.addEventListener('submit', async e => {
     return;
   }
 
+  hideLoadMoreButton();
+
   clearGallery(refs.galleryEl);
   showLoader(refs.loader);
   currentPage = 1;
@@ -90,15 +92,17 @@ refs.formEl.addEventListener('submit', async e => {
 
 refs.loadBtn.addEventListener('click', async e => {
   console.log('Load button clicked, викликаю showLoader');
+
+  hideLoadMoreButton();
   showLoader(refs.loader);
   currentPage += 1;
 
   try {
     const res = await getImagesByQuery(userValue, currentPage);
 
-      renderGalleryForLoadBtn(refs.galleryEl, res.hits, gallery);
-      
-     const firstCard = refs.galleryEl.querySelector('.photo-card');
+    renderGalleryForLoadBtn(refs.galleryEl, res.hits, gallery);
+
+    const firstCard = refs.galleryEl.querySelector('.photo-card');
     if (firstCard) {
       const { height: cardHeight } = firstCard.getBoundingClientRect();
       window.scrollBy({
@@ -106,8 +110,6 @@ refs.loadBtn.addEventListener('click', async e => {
         behavior: 'smooth',
       });
     }
-
-
 
     const loadedImagesCount = currentPage * PAGE_SIZE;
 
@@ -118,8 +120,7 @@ refs.loadBtn.addEventListener('click', async e => {
         position: 'topRight',
       });
     } else {
-      // Якщо не кінець — кнопка має бути видима (опціонально)
-      showLoadMoreButton();
+      updateBtnStatus();
     }
   } catch (error) {
     iziToast.error({
